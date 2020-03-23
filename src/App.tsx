@@ -51,7 +51,7 @@ class HanddiiSearch
                         <span className="glyphicon glyphicon-search"></span>
                       </InputGroup.Append>
                       <InputGroup.Append>
-                        <Button variant="outline-secondary" click={this.SearchAddress()}>Search</Button>
+                        <Button variant="outline-secondary">Search</Button>
                       </InputGroup.Append>
                     </InputGroup>
                 </Card.Body>
