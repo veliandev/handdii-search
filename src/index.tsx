@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import HanddiiSearch from './App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    {
-      new HanddiiSearch().render()
-    }
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
