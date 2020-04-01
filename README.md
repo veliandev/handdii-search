@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Required applications:
+  * Node Package Manager
+
+# To run this application, you must also run [the backend Elixir project](https://github.com/veliandev/handdii_backend)
+
 ## Available Scripts
 
 In the project directory, you can run:
