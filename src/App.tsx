@@ -1,33 +1,39 @@
 import React, {useState, FormEvent} from 'react';
 import './App.css';
 import { Container, Button, Row, Col, InputGroup, FormControl, Card, Table } from 'react-bootstrap';
-import axios from 'axios';
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag';
+
+const client = new ApolloClient({uri: 'http://localhost:4000/api/'});
 
 export function App()
 {
-  const mapApiUrl = `https://api.opencagedata.com/geocode/v1/json?key=ceb6a9aaca6c4da7ac181b5f6a726148`;
   const [address, setAddress] = useState('');
-  const [locations, setLocations] = useState([{name: "", longitude: "", latitude: ""}]) 
-
+  const [locations, setLocations] = useState([{description: "", longitude: "", latitude: ""}]) 
+  
   const handleSearch = () => {
-    console.log(address);
-    axios.get(`${mapApiUrl}&q=${encodeURI(address)}&pretty=1`).then(response => {
-      const res = response.data.results;
-      const locationsRes = res.map((loc: { formatted: string; geometry: { lng: number; lat: number; }; }) => { 
-        return {
-          name: loc.formatted,
-          longitude: loc.geometry.lng,
-          latitude: loc.geometry.lat
-        };
+
+    client
+      .query({
+        query: gql`
+        {
+          location(search: "${address}") {
+            description
+            longitude
+            latitude
+          }
+        }`
+      })
+      .then(result =>
+      {
+        setLocations(result.data.location)
       });
-      setLocations(locationsRes);
-    });
   }
 
   const renderTableBody = () => {
     return locations.map(location =>
       <tr>
-        <td>{location.name}</td>
+        <td>{location.description}</td>
         <td>{location.longitude}</td>
         <td>{location.latitude}</td>
       </tr>
